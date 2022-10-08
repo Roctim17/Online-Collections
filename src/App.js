@@ -4,6 +4,7 @@ import Cart from './Components/Cart';
 import Navbar from './Components/Navbar';
 import Product from './Components/Product';
 import Products from './Components/Products';
+import Checkout from './Pages/Checkout';
 import Home from './Pages/Home';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route  path='/products' element={<Products/>}></Route>
       <Route  path='/products/:id' element={<Product/>}></Route>
       <Route  path='/cart' element={<Cart/>}></Route>
+      <Route  path='/checkout' element={<Checkout/>}></Route>
       </Routes>
     </div>
   );
