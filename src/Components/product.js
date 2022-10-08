@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import Loading from './Loading';
+import Skeleton from 'react-loading-skeleton';
+import { useDispatch } from 'react-redux';
+import { addCart } from '../redux/action';
 
 const Product = () => {
 
     const { id } = useParams()
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false);
+
+const dispatch = useDispatch();
+const addProduct = (product)=>{
+    dispatch(addCart(product))
+}
 
     useEffect(() => {
         const getProduct = async () => {
@@ -18,6 +25,25 @@ const Product = () => {
         getProduct()
     }, [id])
 
+    const Loading = () => {
+        return (
+            <>
+                <div className='col-md-6'>
+                    <Skeleton height={400}></Skeleton>
+                </div>
+                <div className='col-md-6' style={{ lineHeight: 2 }}>
+                    <Skeleton height={50} width={300} />
+                    <Skeleton height={75} />
+                    <Skeleton height={25} width={150} />
+                    <Skeleton height={50} />
+                    <Skeleton height={150} />
+                    <Skeleton height={50} width={100} />
+                    <Skeleton height={50} width={100} style={{ marginLeft: 6 }} />
+
+                </div>
+            </>
+        )
+    }
     const ShowProduct = () => {
         return (
             <>
@@ -31,14 +57,16 @@ const Product = () => {
                     </h4>
                     <h1 className='display-5'>{product.title}</h1>
                     <p className='lead fw-bolder'>
-                        rating {product.rating && product.rating.rate} 
+                        rating {product.rating && product.rating.rate}
                         <i className='fa fa-star'></i>
                     </p>
                     <h3 className='display-6 fw-bold my-4'>
-                       $ {product.price} 
+                        $ {product.price}
                     </h3>
                     <p className='lead'>{product.description}</p>
-                    <button className='btn btn-outline-dark'>Add to Cart</button>
+                    <button className='btn btn-outline-dark'
+                    onClick={()=>addProduct(product)}
+                    >Add to Cart</button>
                     <NavLink to="/cart" className='btn btn-dark ms-2 px-3 py-2'>Go to Cart</NavLink>
                 </div>
             </>
