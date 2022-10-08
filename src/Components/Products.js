@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import Loading from './Loading';
 
 const Products = () => {
 
@@ -26,15 +27,7 @@ const Products = () => {
         getProducts();
     }, []);
 
-    const Loading = () => {
-        return (
-            <>
-                <div className="spinner-grow" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            </>
-        )
-    }
+
 
     const filterProduct = (cat) => {
         const updatedList = data.filter((x) => x.category === cat);
@@ -63,7 +56,9 @@ const Products = () => {
                                             <p class="card-text lead fw-bold">
                                                 $  {product.price}
                                             </p>
-                                            <Link href="#" class="btn btn-outline-dark">Buy Now</Link>
+                                            <NavLink className="btn btn-outline-dark"
+                                            to={`/products/${product.id}`}
+                                            >Buy Now</NavLink>
                                         </div>
                                     </div>
                                 </div>
